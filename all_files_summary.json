@@ -1,0 +1,23 @@
+{
+  "backend/main.mo": "Main actor for the ICP backend that manages pose criteria, presets, and prompt history using in-memory collections, and exposes query/update methods for saving and retrieving prompts and presets.",
+  "backend/migration.mo": "Migration module that clears the old actor's environmentVariables map and returns an empty new actor state.",
+  "feature_evidence.json": "Feature evidence report mapping implemented features (bundle size reduction, prompt-only fallback mode, CSS layout fix, dropdown z-index fix) to their relevant source files, components, and test IDs.",
+  "frontend-file-summaries.txt": "JSON document containing one-line summaries of each frontend source file, describing the purpose of components, hooks, constants, and styles.",
+  "frontend/index.css": "Global CSS file that defines OKLCH-based CSS custom properties for light and dark themes and applies base Tailwind directives.",
+  "frontend/index.html": "Minimal HTML entry point that mounts the React app into a root div and loads the main TypeScript module.",
+  "frontend/src/App.tsx": "Root React component that sets up QueryClient and ThemeProvider, manages generation state, and renders a two-column layout with the form, prompt display, and history panels.",
+  "frontend/src/components/Footer.tsx": "Footer component displaying a dynamic copyright year and a caffeine.ai attribution link with UTM tracking parameters.",
+  "frontend/src/components/Header.tsx": "Sticky header component showing the AI Image Studio logo, app name, and a brief subtitle describing it as a prompt builder.",
+  "frontend/src/components/ImageDisplay.tsx": "Prompt-only display card that shows the assembled prompt text, parameter badges, and negative prompt with copy-to-clipboard support, plus loading and empty states.",
+  "frontend/src/components/ImageGenerationForm.tsx": "A large form component for configuring and submitting image generation parameters (body type, art style, lighting, emotion, negative prompts, etc.) that calls the `useSendQuery` mutation and invokes an `onGenerate` callback with the resulting prompt payload.",
+  "frontend/src/components/PromptHistory.tsx": "Displays a paginated, copyable list of previously generated prompts fetched via `useGetPromptHistory`, with expand/collapse support for entries beyond the first three.",
+  "frontend/src/constants/emotions.ts": "Defines a nested map of emotions (Joy, Sadness, Anger, Fear) with three intensity levels each, and exports a helper `buildEmotionPrompt` to retrieve the corresponding descriptor string.",
+  "frontend/src/constants/negativePrompts.ts": "Exports typed preset options for negative prompts (quality, anatomy, style, nsfw, minimal), each with a label and a ready-to-use prompt string.",
+  "frontend/src/hooks/useActor.ts": "Custom hook that creates and caches an ICP backend actor (authenticated or anonymous) using React Query, and invalidates dependent queries whenever the actor or identity changes.",
+  "frontend/src/hooks/useInternetIdentity.ts": "Provides an `InternetIdentityProvider` context and `useInternetIdentity` hook that manage Internet Identity authentication state (login, logout, identity persistence) via `@dfinity/auth-client`.",
+  "frontend/src/hooks/useQueries.ts": "Centralizes React Query hooks for backend interactions: fetching prompt history, presets, and situation behaviors, plus mutations for sending queries and saving presets.",
+  "frontend/src/index.css": "Global stylesheet that sets up Tailwind CSS with light/dark CSS custom property themes using OKLCH colors, and defines fade-in and slide-in utility animations.",
+  "frontend/src/main.tsx": "Application entry point that mounts the React app wrapped in `QueryClientProvider` and `InternetIdentityProvider`.",
+  "frontend/tailwind.config.js": "Tailwind CSS configuration extending the default theme with custom OKLCH/HSL color tokens, Inter/JetBrains Mono fonts, glow box shadows, and accordion animations via `tailwindcss-animate`.",
+  "project_state.json": "Tracks project state (version 5) for an AI fashion/portrait image generation app, documenting known issues (nav dropdown overlap, settings panel CSS bug, deployment budget limits), existing features, and fix requests."
+}

@@ -1,0 +1,53 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-28T16:54:26.302Z",
+  "summary": "The diff implements a prompt-only fallback (REQ-3) and bundle size reduction via removing image generation code (REQ-2). REQ-4 (settings panel CSS rotation bug fix) and REQ-5 (navigation dropdown z-index fix) are not implemented. There is no evidence of a primary navigation component with dropdown menus, no CSS rotation fix for settings panel controls, and no z-index/overflow-visible changes to a nav bar.",
+  "missing_requirements": [
+    {
+      "id": "REQ-4",
+      "requirement": "Fix the settings panel CSS layout bug where all controls render rotated 90 degrees and overlap each other. Each settings row must render horizontally in a normal stacked vertical layout.",
+      "reason": "No CSS changes or layout fixes addressing 90-degree rotation of settings panel controls are present in the diff. The index.css shows no rotation-fix rules, and ImageGenerationForm.tsx (truncated) shows no explicit CSS correction for this bug.",
+      "evidence": [
+        "frontend/src/index.css",
+        "frontend/src/components/ImageGenerationForm.tsx"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Fix the primary navigation dropdown z-index/overlap bug: open dropdown must render above sibling elements using absolute positioning with a sufficiently high z-index, and the nav bar must have overflow visible.",
+      "reason": "No navigation component with dropdowns exists in the diff. The Header.tsx is a simple branding header with no dropdown menus, no z-index fixes, and no overflow-visible nav bar styles.",
+      "evidence": [
+        "frontend/src/components/Header.tsx",
+        "frontend/src/index.css"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "A migration module (migration.mo) was added that clears environment variables from the old actor state during canister migration.",
+      "reason": "No requirement in the build request asks for a data migration script or clearing of environment variables. This is not mentioned in REQ-2, REQ-3, REQ-4, or REQ-5.",
+      "evidence": [
+        "backend/migration.mo"
+      ]
+    }
+  ],
+  "confidence": 0.85,
+  "changed_files": [
+    "backend/main.mo",
+    "backend/migration.mo",
+    "frontend-file-summaries.txt",
+    "frontend/src/App.tsx",
+    "frontend/src/components/Footer.tsx",
+    "frontend/src/components/Header.tsx",
+    "frontend/src/components/ImageDisplay.tsx",
+    "frontend/src/components/ImageGenerationForm.tsx",
+    "frontend/src/components/PromptHistory.tsx",
+    "frontend/src/constants/emotions.ts",
+    "frontend/src/constants/negativePrompts.ts",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/index.css",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

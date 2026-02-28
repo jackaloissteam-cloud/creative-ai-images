@@ -1,0 +1,95 @@
+{
+  "kind": "build_request",
+  "title": "Reduce app size for successful deployment with prompt-only fallback",
+  "projectName": "AI Image Studio",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-2",
+      "text": "Reduce the overall application bundle size to stay within deployment budget limits. Audit and trim any non-essential dependencies, remove unused imports, and consolidate code where possible without removing any user-visible features or UI panels.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "More Budget possible, i want the App Like it is, In case of doubt without Generating Image only promt"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Application deploys successfully without hitting size or budget limits.",
+        "All existing UI panels and controls remain intact and functional.",
+        "No user-visible features are removed."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "If the deployment budget is exceeded and image generation via Hugging Face HTTP outcalls cannot be included, fall back to prompt-only mode: display the fully assembled prompt text and all selected parameters on screen instead of generating an image. The full UI (all form controls, settings panels, prompt history) must remain visible and usable.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "In case of doubt without Generating Image only promt"
+        ]
+      },
+      "acceptanceCriteria": [
+        "If image generation is unavailable, the app shows the constructed prompt and all parameter values clearly instead of a generation error.",
+        "All form controls (art style, aspect ratio, model, diversity, clothing, camera, lighting, composition, emotion, negative prompts) remain visible and functional.",
+        "Prompt history still records and displays past prompt submissions.",
+        "No blank or broken UI states appear when generation is skipped."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Fix the settings panel CSS layout bug where all controls render rotated 90 degrees and overlap each other. Each settings row (Art Style, Aspect Ratio, Model, Diversity, Clothing Style, Camera, Lighting, Composition, Emotion, etc.) must render horizontally in a normal stacked vertical layout.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-earlier"
+        ],
+        "quotes": [
+          "Settings panel UI renders sideways/rotated with overlapping dropdowns — CSS layout bug."
+        ]
+      },
+      "acceptanceCriteria": [
+        "All settings panel controls render horizontally and are readable without rotation.",
+        "No controls overlap each other.",
+        "Layout is correct on both desktop and mobile viewports."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Fix the primary navigation dropdown z-index/overlap bug: when a dropdown is opened, its list items must not visually overlap or crowd adjacent dropdown menu headings. The open dropdown must render above sibling elements using absolute positioning with a sufficiently high z-index, and the nav bar must have overflow visible.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-earlier"
+        ],
+        "quotes": [
+          "Fix the primary navigation menu so that when the first dropdown is opened, its list items (especially those at the bottom of the list) do not visually overlap or crowd over adjacent dropdown menu headings."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Open dropdown list renders in its own stacking layer above all sibling nav elements.",
+        "Bottom items of an open dropdown do not overlap adjacent menu headings.",
+        "Closing the dropdown restores normal nav layout."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not remove any existing user-visible UI features or form controls.",
+    "Preserve all existing app functionality; only reduce bundle size or defer image generation as a last resort.",
+    "Prompt-only fallback must show the full assembled prompt and all parameters — do not show a blank or error state."
+  ],
+  "nonGoals": [
+    "Adding new features beyond what already exists in the app.",
+    "Changing the visual design or color theme.",
+    "Integrating a different image generation API."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "frontend/src/App.tsx": "Root app component with QueryClientProvider and ThemeProvider; manages generation state with OnGeneratePayload type and renders a two-column layout with sticky left form panel and right display/history panel.",
+  "frontend/src/components/Header.tsx": "Sticky header with AI Image Studio branding, logo image, and subtitle describing the app as a prompt builder.",
+  "frontend/src/components/Footer.tsx": "Footer with dynamic copyright year and caffeine.ai attribution link with UTM tracking parameters.",
+  "frontend/src/components/ImageGenerationForm.tsx": "Complete image generation form with all controls (body type, ethnicity, age, art style, aspect ratio, clothing, camera, lighting, environment, composition, pose, emotion, negative prompts) that builds and submits a text prompt without image generation.",
+  "frontend/src/components/ImageDisplay.tsx": "Prompt-only display component that shows the fully assembled prompt text, parameter breakdown as badges, and negative prompt when a payload is available; includes copy-to-clipboard and loading/empty states.",
+  "frontend/src/hooks/useQueries.ts": "React Query hooks for all backend operations (prompt history, presets, situation behaviors, send query, save preset) with proper cache invalidation.",
+  "frontend/src/index.css": "OKLCH-based theme with warm amber/gold primary accents for both dark (deep charcoal) and light modes, with fade/slide-in keyframe animations.",
+  "frontend/tailwind.config.js": "Tailwind config mapping CSS variables to semantic color tokens with amber/gold glow shadows, Inter/DM Sans fonts, and accordion animations.",
+  "frontend/src/constants/negativePrompts.ts": "Defines five negative prompt presets (quality, anatomy, style, nsfw, minimal) with their string values and typed options array.",
+  "frontend/src/components/PromptHistory.tsx": "Collapsible prompt history card that fetches and displays past prompt submissions sorted by timestamp with copy-to-clipboard and expand/collapse functionality.",
+  "frontend/src/constants/emotions.ts": "Exports four emotion categories (Joy, Sadness, Anger, Fear) with three intensity levels each and a buildEmotionPrompt helper function."
+}

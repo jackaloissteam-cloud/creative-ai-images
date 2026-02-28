@@ -1,0 +1,127 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Reduce app size for successful deployment with prompt-only fallback",
+  "requirements": [
+    {
+      "id": "REQ-2",
+      "summary": "Reduce overall application bundle size by auditing and trimming non-essential dependencies, removing unused imports, and consolidating code without removing user-visible features",
+      "acceptanceCriteria": [
+        "Application deploys successfully without hitting size or budget limits.",
+        "All existing UI panels and controls remain intact and functional.",
+        "No user-visible features are removed."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Review and remove any unused imports or state that is no longer referenced. Ensure all necessary functionality remains intact."
+        },
+        {
+          "path": "frontend/src/components/ImageGenerationForm.tsx",
+          "operation": "modify",
+          "description": "Audit imports and remove any unused dependencies. Consolidate repeated logic if any exists. Keep all form controls and UI elements intact."
+        },
+        {
+          "path": "frontend/src/components/ImageDisplay.tsx",
+          "operation": "modify",
+          "description": "Remove unused imports and ensure error handling messages remain clear and user-friendly."
+        },
+        {
+          "path": "frontend/src/components/PromptHistory.tsx",
+          "operation": "modify",
+          "description": "Check for and remove any unused imports while preserving all display and copy functionality."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Review query hooks and response parsing utilities for unused code. Keep all error handling logic intact."
+        },
+        {
+          "path": "frontend/src/main.tsx",
+          "operation": "modify",
+          "description": "Verify all providers and imports are necessary for app initialization."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Implement prompt-only fallback mode: if image generation via HTTP outcalls cannot be included due to budget, display the fully assembled prompt text and all selected parameters instead of generating an image",
+      "acceptanceCriteria": [
+        "If image generation is unavailable, the app shows the constructed prompt and all parameter values clearly instead of a generation error.",
+        "All form controls (art style, aspect ratio, model, diversity, clothing, camera, lighting, composition, emotion, negative prompts) remain visible and functional.",
+        "Prompt history still records and displays past prompt submissions.",
+        "No blank or broken UI states appear when generation is skipped."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ImageDisplay.tsx",
+          "operation": "modify",
+          "description": "Add a prompt-only display mode that renders the full assembled prompt text and all parameter values in a readable format when image generation is unavailable. Show this as an alternative to the image, using clear typography and spacing to display the prompt string and parameter breakdown."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Introduce a configuration flag or state to enable prompt-only mode. When this mode is active, skip the image generation mutation and instead display the prompt and parameters via ImageDisplay. Ensure the form submission still triggers prompt history recording."
+        },
+        {
+          "path": "frontend/src/hooks/useQueries.ts",
+          "operation": "modify",
+          "description": "Update the image generation hook to support a prompt-only mode that bypasses the backend call but still returns the constructed prompt and criteria for display. Ensure prompt history mutation still fires to record the submission."
+        },
+        {
+          "path": "frontend/src/components/ImageGenerationForm.tsx",
+          "operation": "modify",
+          "description": "Ensure all form controls remain fully functional in prompt-only mode. All dropdowns, text inputs, and parameter selectors must continue to update state and trigger form submission even when image generation is skipped."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Fix settings panel CSS layout bug where all controls render rotated 90 degrees and overlap each other; ensure each settings row renders horizontally in a normal stacked vertical layout",
+      "acceptanceCriteria": [
+        "All settings panel controls render horizontally and are readable without rotation.",
+        "No controls overlap each other.",
+        "Layout is correct on both desktop and mobile viewports."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ImageGenerationForm.tsx",
+          "operation": "modify",
+          "description": "Locate and remove any CSS classes or inline styles that apply rotation (e.g., transform: rotate) to the form or its container. Ensure the form uses a standard vertical flex or grid layout (flex-col or similar) with proper spacing (gap, space-y). Verify that each settings row (Art Style, Aspect Ratio, Model, Diversity, Clothing Style, Camera, Lighting, Composition, Emotion) renders in its own horizontal row without overlap."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Review global styles for any unintended transform or layout rules affecting form elements. Remove or override any rotate transforms or layout conflicts."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Check for any custom utilities or theme extensions that might introduce rotation or layout anomalies. Ensure standard layout utilities are correctly configured."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Fix primary navigation dropdown z-index/overlap bug so that open dropdown list items render above sibling elements without overlapping adjacent menu headings",
+      "acceptanceCriteria": [
+        "Open dropdown list renders in its own stacking layer above all sibling nav elements.",
+        "Bottom items of an open dropdown do not overlap adjacent menu headings.",
+        "Closing the dropdown restores normal nav layout."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/Header.tsx",
+          "operation": "modify",
+          "description": "If the header contains navigation with dropdowns, ensure the dropdown container uses absolute or fixed positioning with a high z-index (e.g., z-50 or higher). Verify the parent nav container has overflow-visible and that dropdown menus do not overlap adjacent headings when expanded. Add proper spacing and layering classes to dropdown elements."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add or adjust global z-index utilities if needed to ensure dropdown menus appear above all other navigation elements. Verify no global overflow constraints interfere with dropdown visibility."
+        }
+      ]
+    }
+  ]
+}

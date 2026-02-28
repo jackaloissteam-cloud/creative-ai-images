@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Image generation app (AI fashion/portrait generator) with navigation dropdown fix. User wants the app preserved as-is; if budget is tight, fall back to prompt-only mode without actual image generation.",
+  "architectural_notes": [
+    "Backend requires Stable Diffusion API integration for image generation; currently shows placeholder UI without working generation.",
+    "Canister IC0508 (stopped/out of cycles) errors are infrastructure issues, not code bugs — require redeploy or platform support."
+  ],
+  "known_issues": [
+    "Primary navigation menu: first dropdown option text at bottom of list overlaps/crowds other dropdown menu headings",
+    "Repeated deployment failures due to app size/budget limit on Caffeine platform.",
+    "Settings panel UI renders sideways/rotated with overlapping dropdowns — CSS layout bug."
+  ],
+  "isFixRequest": true,
+  "existing_features": [
+    {
+      "id": "feature-reduce-the-overall-application-bundle-size-to-stay-within-deployment-budget-limits-audit-and-trim-any-non-essential-dependencies-remove-unused-imports-and-consolidate-code-where-possible-without-removing-any-user-visible-features-or-ui-panels",
+      "title": "Reduce the overall application bundle size to stay within deployment budget limits. Audit and trim any non-essential dependencies, remove unused imports, and consolidate code where possible without removing any user-visible features or UI panels.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-if-the-deployment-budget-is-exceeded-and-image-generation-via-hugging-face-http-outcalls-cannot-be-included-fall-back-to-prompt-only-mode-display-the-fully-assembled-prompt-text-and-all-selected-parameters-on-screen-instead-of-generating-an-image-the-full-ui-all-form-controls-settings-panels-prompt-history-must-remain-visible-and-usable",
+      "title": "If the deployment budget is exceeded and image generation via Hugging Face HTTP outcalls cannot be included, fall back to prompt-only mode: display the fully assembled prompt text and all selected parameters on screen instead of generating an image. The full UI (all form controls, settings panels, prompt history) must remain visible and usable.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-settings-panel-css-layout-bug-where-all-controls-render-rotated-90-degrees-and-overlap-each-other-each-settings-row-art-style-aspect-ratio-model-diversity-clothing-style-camera-lighting-composition-emotion-etc-must-render-horizontally-in-a-normal-stacked-vertical-layout",
+      "title": "Fix the settings panel CSS layout bug where all controls render rotated 90 degrees and overlap each other. Each settings row (Art Style, Aspect Ratio, Model, Diversity, Clothing Style, Camera, Lighting, Composition, Emotion, etc.) must render horizontally in a normal stacked vertical layout.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-primary-navigation-dropdown-z-index-overlap-bug-when-a-dropdown-is-opened-its-list-items-must-not-visually-overlap-or-crowd-adjacent-dropdown-menu-headings-the-open-dropdown-must-render-above-sibling-elements-using-absolute-positioning-with-a-sufficiently-high-z-index-and-the-nav-bar-must-have-overflow-visible",
+      "title": "Fix the primary navigation dropdown z-index/overlap bug: when a dropdown is opened, its list items must not visually overlap or crowd adjacent dropdown menu headings. The open dropdown must render above sibling elements using absolute positioning with a sufficiently high z-index, and the nav bar must have overflow visible.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Fix the primary navigation menu so that when the first dropdown is opened, its list items (especially those at the bottom of the list) do not visually overlap or crowd over adjacent dropdown menu headings. The open dropdown must render in its own stacking layer (e.g., using absolute positioning with a sufficiently high z-index and overflow visible on the nav bar) so it floats above the rest of the navigation without displacing or obscuring sibling elements.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "If deployment budget is exceeded, fall back to prompt-only mode (display the prompt and parameters without actual image generation) rather than cutting other app features. Keep the full app UI intact.",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Fix primary navigation dropdown overlap issue",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
